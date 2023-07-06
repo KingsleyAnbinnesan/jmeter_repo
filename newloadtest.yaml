@@ -8,7 +8,7 @@ parameters:
     type: string
 jobs:
 - deployment: VMDeploy
-  displayName: BoldBI
+  displayName: BoldBI-Loadtest
   pool:
     vmImage: 'Ubuntu-latest'
   environment:
