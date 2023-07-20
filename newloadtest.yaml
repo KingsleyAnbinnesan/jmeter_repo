@@ -24,8 +24,8 @@ jobs:
               script: |
                 cd ~
                 ls
-                echo "Syncfusion@123" | sudo -S mkdir boldbi
-                cd boldbi 
+                echo "Syncfusion@123" | sudo -S mkdir loadtest
+                cd loadtest
                 sudo wget --no-check-certificate '${{parameters.package_link}}'
                 sudo unzip BoldBIEnterpriseEdition_Linux*
                 cd BoldBIEnterpriseEdition-Linux
@@ -36,7 +36,7 @@ jobs:
                 else
                 echo "Fresh Installation"
                 chmod +x install-boldbi.sh
-                sudo bash install-boldbi.sh -i new -u root -h http://20.102.96.134 -n true
+                sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
                 fi
                 cd ~
-                sudo rm -rf boldbi
+                sudo rm -rf loadtest
