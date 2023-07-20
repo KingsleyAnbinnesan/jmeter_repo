@@ -39,4 +39,4 @@ jobs:
           fi
           cd ~
           sudo rm -rf loadtest
-        readyTimeout: '20000'  
+      readyTimeout: '20000'  
