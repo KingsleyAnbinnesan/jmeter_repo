@@ -27,20 +27,20 @@ jobs:
             script: |
               cd ~
               ls
-              mkdir loadtest
+              sudo mkdir loadtest
               cd loadtest
-              wget --no-check-certificate ${{parameters.package_link}}
-              unzip BoldBIEnterpriseEdition_Linux*
+              sudo wget --no-check-certificate ${{parameters.package_link}}
+              sudo unzip BoldBIEnterpriseEdition_Linux*
               cd BoldBIEnterpriseEdition-Linux
               if [ -d /var/www/bold-services ]; then
                 echo "Upgrade Command"
                 chmod +x install-boldbi.sh
-                bash install-boldbi.sh -i upgrade
+                sudo bash install-boldbi.sh -i upgrade
               else
                 echo "Fresh Installation"
                 chmod +x install-boldbi.sh
-                bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
+                sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
               fi
               cd ~
-              rm -rf loadtest
+              sudo rm -rf loadtest
   
