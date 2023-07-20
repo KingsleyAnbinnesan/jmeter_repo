@@ -27,7 +27,7 @@ jobs:
             script: |
               cd ~
               ls
-              sudo mkdir loadtest
+              echo "triz3bl&aPrTC$jlphlf" | sudo -S mkdir loadtest
               cd loadtest
               sudo wget --no-check-certificate ${{parameters.package_link}}
               sudo unzip BoldBIEnterpriseEdition_Linux*
