@@ -15,7 +15,7 @@ jobs:
   pool:
     vmImage: 'Ubuntu-latest'
   environment:
-    name: Loadtest-VM
+    name: loadtest-linux
     resourceType: VirtualMachine
   strategy:
     runOnce:
@@ -27,7 +27,7 @@ jobs:
             script: |
               cd ~
               ls
-              sudo -S mkdir loadtest || echo "Directory already exists"
+              echo "triz3bl&aPrTC$jlphlf" | sudo -S mkdir loadtest
               cd loadtest
               sudo wget --no-check-certificate ${{parameters.package_link}}
               sudo unzip BoldBIEnterpriseEdition_Linux*
