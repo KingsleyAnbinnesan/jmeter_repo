@@ -1,42 +1,38 @@
 trigger:
   - none
 
-pool:
-  vmImage: ubuntu-latest
-
 parameters:
   - name: package_link
     displayName: Linux Package URL
     type: string
 
 jobs:
-- deployment: VMDeploy
-  displayName: BoldBI-Loadtest
+- job: DeploymentJob
   pool:
-    vmImage: 'Ubuntu-latest'
+    vmImage: ubuntu-latest
 
-    steps:
-    - task: SSH@0
-      inputs:
-        sshEndpoint: 'Loadtest-linux'
-        runOptions: 'inline'
-        inline: |
-          cd ~
-          ls
-          sudo -S mkdir loadtest | echo "triz3bl&aPrTC$jlphlf"
-          cd loadtest
-          sudo wget --no-check-certificate '${{parameters.package_link}}'
-          sudo unzip BoldBIEnterpriseEdition_Linux*
-          cd BoldBIEnterpriseEdition-Linux
-          if [ -d /var/www/bold-services ]; then
-            echo "Upgrade Command"
-            chmod +x install-boldbi.sh
-            sudo bash install-boldbi.sh -i upgrade
-          else
-            echo "Fresh Installation"
-            chmod +x install-boldbi.sh
-            sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
-          fi
-          cd ~
-          sudo rm -rf loadtest
+  steps:
+  - task: SSH@0
+    inputs:
+      sshEndpoint: 'Loadtest-linux'
+      runOptions: 'inline'
+      inline: |
+        cd ~
+        ls
+        sudo -S mkdir loadtest | echo "triz3bl&aPrTC$jlphlf"
+        cd loadtest
+        sudo wget --no-check-certificate '${{parameters.package_link}}'
+        sudo unzip BoldBIEnterpriseEdition_Linux*
+        cd BoldBIEnterpriseEdition-Linux
+        if [ -d /var/www/bold-services ]; then
+          echo "Upgrade Command"
+          chmod +x install-boldbi.sh
+          sudo bash install-boldbi.sh -i upgrade
+        else
+          echo "Fresh Installation"
+          chmod +x install-boldbi.sh
+          sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
+        fi
+        cd ~
+        sudo rm -rf loadtest
       readyTimeout: '20000'  
