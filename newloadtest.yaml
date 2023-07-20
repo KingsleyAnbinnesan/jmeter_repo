@@ -29,8 +29,8 @@ jobs:
               ls
               mkdir loadtest
               cd loadtest
-              sudo wget --no-check-certificate ${{parameters.package_link}}
-              sudo unzip BoldBIEnterpriseEdition_Linux*
+              wget --no-check-certificate ${{parameters.package_link}}
+              unzip BoldBIEnterpriseEdition_Linux*
               cd BoldBIEnterpriseEdition-Linux
               if [ -d /var/www/bold-services ]; then
                 echo "Upgrade Command"
@@ -42,5 +42,5 @@ jobs:
                 sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
               fi
               cd ~
-              sudo rm -rf loadtest
+              rm -rf loadtest
   
