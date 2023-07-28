@@ -1,46 +1,151 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 trigger:
-  - none
+- none
 
-pool:
-  vmImage: ubuntu-latest
-
-parameters:
-  - name: package_link
-    displayName: Linux Package URL
-    type: string
 
 jobs:
+- job: DeploymentJob
 - deployment: VMDeploy
   displayName: BoldBI-Loadtest
+
   pool:
     vmImage: 'Ubuntu-latest'
   environment:
     name: loadtest-linux
     resourceType: VirtualMachine
+
   strategy:
-    runOnce:
-      deploy:
-        steps:
-        - task: Bash@3
-          inputs:
-            targetType: 'inline'
-            script: |
-              cd ~
-              ls
-              echo 'triz3bl&aPrTC$jlphlf' | sudo -S mkdir loadtest
-              cd loadtest
-              sudo wget --no-check-certificate ${{parameters.package_link}}
-              sudo unzip BoldBIEnterpriseEdition_Linux*
-              cd BoldBIEnterpriseEdition-Linux
-              if [ -d /var/www/bold-services ]; then
-                echo "Upgrade Command"
-                chmod +x install-boldbi.sh
-                sudo bash install-boldbi.sh -i upgrade
-              else
-                echo "Fresh Installation"
-                chmod +x install-boldbi.sh
-                sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
-              fi
-              cd ~
-              sudo rm -rf loadtest
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2 
+            inputs: 
+              buildType: 'specific'
+              project: 'a7a9079d-03ad-44f5-8677-e9ec44b5ba3d'
+              definition: '12'
+              specificBuildWithTriggering: true
+              buildVersionToDownload: 'latest'
+              allowPartiallySucceededBuilds: true 
+              allowFailedBuilds: true 
+              artifactName: 'manifest'
+              targetPath: '$(Pipeline.Workspace)'
+              
+          - script: |
+              LinuxSiteUpdate=$(awk '/Linux:/ {print $2}' $(Pipeline.Workspace)/param_value.txt)
+              echo "$LinuxSiteUpdate"
+              echo "##vso[task.setvariable variable=Linuxsite]$LinuxSiteUpdate"
+              BranchName=$(awk '/Branch:/ {print $2}' $(Pipeline.Workspace)/param_value.txt)
+              echo "$BranchName"
+              echo "##vso[task.setvariable variable=Branch]$BranchName"
+            displayName: 'Assign Docker values'
+            
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd ~
+                ls 
+                echo 'triz3bl&aPrTC$jlphlf' | sudo -S mkdir loadtest
+                cd loadtest
+                sudo rm -rf Bold* 
+                LinuxPackageSiteUpdate=$(awk '/LinuxPackage:/ {print $2}' $(Pipeline.Workspace)/param_value.txt)
+                echo "$LinuxPackageSiteUpdate"
+                sudo wget $LinuxPackageSiteUpdate
+                sudo unzip BoldBIEnterpriseEdition_Linux*
+                cd BoldBIEnterpriseEdition-Linux 
+                if [ -d /var/www/bold-services ]; then 
+                echo "Upgrade Command" 
+                chmod +x install-boldbi.sh 
+                sudo bash install-boldbi.sh -i upgrade 
+                else 
+                echo "Fresh Installation" 
+                chmod +x install-boldbi.sh 
+                sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true 
+                fi 
+                cd ~ 
+                sudo rm -rf loadtest 
+            condition: and(eq(variables['Linuxsite'], 'True'), contains(variables['Branch'], 'hotfix'))    
+  variables:
+    VariableFromJob1: $LinuxPackageSiteUpdate
+- job: SendEmailJob
+  displayName: Send Email Job
+  dependsOn: DeploymentJob
+  condition: eq(dependencies.DeploymentJob.result, 'Succeeded')
+  pool:
+    vmImage: windows-latest
+  steps:
+  - task: DownloadPipelineArtifact@2 
+    inputs: 
+      buildType: 'specific'
+      project: 'a7a9079d-03ad-44f5-8677-e9ec44b5ba3d'
+      definition: '12'
+      specificBuildWithTriggering: true
+      buildVersionToDownload: 'latest'
+      allowPartiallySucceededBuilds: true 
+      allowFailedBuilds: true 
+      artifactName: 'manifest'
+      targetPath: '$(Pipeline.Workspace)'
+              
+  - powershell: |
+      $paramFile = "$(Pipeline.Workspace)\param_value.txt"
+      $content = Get-Content $paramFile -Raw
+      $pattern = 'Linux:\s*(.*)'
+      if ($content -match $pattern) {
+        $LinuxSiteUpdate = $matches[1].Trim()
+        Write-Host $LinuxSiteUpdate
+        Write-Host "##vso[task.setvariable variable=Linuxsite]$LinuxSiteUpdate"
+      }
+      $pattern = 'Branch:\s*(.*)'
+      if ($content -match $pattern) {
+        $BranchName = $matches[1].Trim()
+        Write-Host $BranchName
+        Write-Host "##vso[task.setvariable variable=Branch]$BranchName"
+      }
+      $pattern = 'LinuxPackage:\s*(.*)'
+      if ($content -match $pattern) {
+        $LinuxPackageSiteUpdate = $matches[1].Trim()
+        Write-Host $LinuxPackageSiteUpdate
+        Write-Host "##vso[task.setvariable variable=LinuxBuild]$LinuxPackageSiteUpdate"
+      }
+    displayName: 'Assign Docker values'
+  
+  - task: SendEmail@1
+    inputs:
+      To: '$(toaddress)'
+      CC: '$(ccaddress)'
+      From: '$(fromaddress)'
+      Subject: Bold BI Loadtest - Site Updated
+      Body: |
+        <html>
+                <body>
+                  <p>Hi Everyone,</p>
+                  <p>The Loadtest site has been updated using the following Package:</p>
+                  <p><a href="$(LinuxBuild)">$(LinuxBuild)</a></p>
+                  <table style="border-collapse: collapse;">
+                  <tr>
+                    <td>Site Link</td>
+                    <td>: <a href="http://boldbi-loadtest.boldbi.com">http://boldbi-loadtest.boldbi.com</a></td>
+                  </tr>
+                  <tr>
+                    <td>Username</td>
+                    <td>: Admin</td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td>: Admin@123</td>
+                  </tr>
+                  </table>
+                  <p>Thanks,</p>
+                  <p>Bold BI DevOps </p>
+                </body>
+                </html>
+      BodyAsHtml: true
+      AddAttachment: false
+      SmtpServer: '$(smtpserver)'
+      SmtpUsername: '$(smtpuser)'
+      SmtpPassword: '$(smtppassword)'
+    condition: and(eq(variables['Linuxsite'], 'True'), contains(variables['Branch'], 'hotfix'))
   
