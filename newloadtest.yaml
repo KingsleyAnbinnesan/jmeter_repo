@@ -15,4 +15,4 @@ resources:
     trigger: true
  
 steps:
-  - script: echo "Run BoldBI-Linux Pipeline"
+  - script: echo "Run BoldBI-Loadtest Pipeline"
