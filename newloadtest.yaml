@@ -1,18 +1,45 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-trigger: none
+trigger:
+  - none
 
 pool:
   vmImage: ubuntu-latest
 
-resources:
-  pipelines:
-  - pipeline: BoldBI
-    source: BoldBI
-    project: 'a7a9079d-03ad-44f5-8677-e9ec44b5ba3d'
-    trigger: true
- 
-steps:
-  - script: echo "Run BoldBI-Loadtest Pipeline"
+parameters:
+  - name: package_link
+    displayName: Linux Package URL
+    type: string
+
+jobs:
+- deployment: VMDeploy
+  displayName: BoldBI-Loadtest
+  pool:
+    vmImage: 'Ubuntu-latest'
+  environment:
+    name: loadtest-linux
+    resourceType: VirtualMachine
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            script: |
+              cd ~
+              ls
+              echo 'triz3bl&aPrTC$jlphlf' | sudo -S mkdir loadtest
+              cd loadtest
+              sudo wget --no-check-certificate ${{parameters.package_link}}
+              sudo unzip BoldBIEnterpriseEdition_Linux*
+              cd BoldBIEnterpriseEdition-Linux
+              if [ -d /var/www/bold-services ]; then
+                echo "Upgrade Command"
+                chmod +x install-boldbi.sh
+                sudo bash install-boldbi.sh -i upgrade
+              else
+                echo "Fresh Installation"
+                chmod +x install-boldbi.sh
+                sudo bash install-boldbi.sh -i new -u root -h http://boldbi-loadtest.boldbi.com -n true
+              fi
+              cd ~
+              sudo rm -rf loadtest
