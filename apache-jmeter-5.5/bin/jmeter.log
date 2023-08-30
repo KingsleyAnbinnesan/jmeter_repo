@@ -1,43 +1,73 @@
-2023-08-30 12:07:27,008 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
-2023-08-30 12:07:27,045 INFO o.a.j.JMeter: Loading user properties from: user.properties
-2023-08-30 12:07:27,069 INFO o.a.j.JMeter: Loading system properties from: system.properties
-2023-08-30 12:07:27,084 INFO o.a.j.JMeter: Copyright (c) 1998-2022 The Apache Software Foundation
-2023-08-30 12:07:27,084 INFO o.a.j.JMeter: Version 5.5
-2023-08-30 12:07:27,085 INFO o.a.j.JMeter: java.version=17.0.4.1
-2023-08-30 12:07:27,085 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
-2023-08-30 12:07:27,085 INFO o.a.j.JMeter: os.name=Windows 10
-2023-08-30 12:07:27,085 INFO o.a.j.JMeter: os.arch=amd64
-2023-08-30 12:07:27,085 INFO o.a.j.JMeter: os.version=10.0
-2023-08-30 12:07:27,085 INFO o.a.j.JMeter: file.encoding=Cp1252
-2023-08-30 12:07:27,086 INFO o.a.j.JMeter: java.awt.headless=null
-2023-08-30 12:07:27,086 INFO o.a.j.JMeter: Max memory     =17179869184
-2023-08-30 12:07:27,086 INFO o.a.j.JMeter: Available Processors =12
-2023-08-30 12:07:27,096 INFO o.a.j.JMeter: Default Locale=English (EN)
-2023-08-30 12:07:27,096 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
-2023-08-30 12:07:27,096 INFO o.a.j.JMeter: JMeterHome=D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5
-2023-08-30 12:07:27,096 INFO o.a.j.JMeter: user.dir  =D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin
-2023-08-30 12:07:27,096 INFO o.a.j.JMeter: PWD       =D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin
-2023-08-30 12:07:27,098 INFO o.a.j.JMeter: IP: 172.27.144.1 Name: SYNCLAPN-29459 FullName: SYNCLAPN-29459.mshome.net
-2023-08-30 12:07:27,132 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
-2023-08-30 12:07:27,335 INFO o.a.j.JMeterGuiLauncher: Setting LAF to: laf:javax.swing.plaf.metal.MetalLookAndFeel
-2023-08-30 12:09:51,090 INFO o.a.j.s.FileServer: Default base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
-2023-08-30 12:09:51,094 INFO o.a.j.g.a.Load: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipeline1.jmx
-2023-08-30 12:09:51,094 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
-2023-08-30 12:09:51,339 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
-2023-08-30 12:09:51,398 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
-2023-08-30 12:09:51,401 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
-2023-08-30 12:09:51,403 INFO o.a.j.s.SaveService: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipeline1.jmx
-2023-08-30 12:09:51,470 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: true Prefix: COOKIE_
-2023-08-30 12:09:51,473 INFO o.a.j.p.h.c.CacheManager: Will only cache the following methods: [GET]
-2023-08-30 12:09:51,483 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2023-08-30 12:09:51,484 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2023-08-30 12:09:51,484 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2023-08-30 12:09:51,484 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
-2023-08-30 12:09:51,485 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
-2023-08-30 12:09:51,485 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
-2023-08-30 12:09:56,274 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
-2023-08-30 12:09:56,274 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
-2023-08-30 12:09:56,274 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
-2023-08-30 12:09:56,275 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
-2023-08-30 12:09:56,542 INFO o.a.j.v.ViewResultsFullVisualizer: Add JavaFX to your Java installation if you want to use renderer: org.apache.jmeter.visualizers.RenderInBrowser
-2023-08-30 12:09:56,686 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:16:37,934 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2023-08-30 13:16:37,978 INFO o.a.j.JMeter: Loading user properties from: user.properties
+2023-08-30 13:16:38,001 INFO o.a.j.JMeter: Loading system properties from: system.properties
+2023-08-30 13:16:38,009 INFO o.a.j.JMeter: Copyright (c) 1998-2022 The Apache Software Foundation
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: Version 5.5
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: java.version=17.0.4.1
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: os.name=Windows 10
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: os.arch=amd64
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: os.version=10.0
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: file.encoding=Cp1252
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: java.awt.headless=null
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: Max memory     =17179869184
+2023-08-30 13:16:38,011 INFO o.a.j.JMeter: Available Processors =12
+2023-08-30 13:16:38,021 INFO o.a.j.JMeter: Default Locale=English (EN)
+2023-08-30 13:16:38,021 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2023-08-30 13:16:38,021 INFO o.a.j.JMeter: JMeterHome=D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5
+2023-08-30 13:16:38,021 INFO o.a.j.JMeter: user.dir  =D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin
+2023-08-30 13:16:38,021 INFO o.a.j.JMeter: PWD       =D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin
+2023-08-30 13:16:38,022 INFO o.a.j.JMeter: IP: 172.27.144.1 Name: SYNCLAPN-29459 FullName: SYNCLAPN-29459.mshome.net
+2023-08-30 13:16:38,063 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
+2023-08-30 13:16:38,264 INFO o.a.j.JMeterGuiLauncher: Setting LAF to: laf:javax.swing.plaf.metal.MetalLookAndFeel
+2023-08-30 13:16:47,916 INFO o.a.j.s.FileServer: Default base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:16:47,921 INFO o.a.j.g.a.Load: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipelinehi.jmx
+2023-08-30 13:16:47,921 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:16:48,182 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2023-08-30 13:16:48,244 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2023-08-30 13:16:48,246 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2023-08-30 13:16:48,249 INFO o.a.j.s.SaveService: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipelinehi.jmx
+2023-08-30 13:16:48,356 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: true Prefix: COOKIE_
+2023-08-30 13:16:48,358 INFO o.a.j.p.h.c.CacheManager: Will only cache the following methods: [GET]
+2023-08-30 13:16:48,364 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-08-30 13:16:48,364 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-08-30 13:16:48,364 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-08-30 13:16:48,364 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2023-08-30 13:16:48,364 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2023-08-30 13:16:48,369 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2023-08-30 13:16:53,225 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:42:28,632 INFO o.a.j.g.a.SearchTreeDialog: Replaced 1 in element:HTTP Header manager
+2023-08-30 13:42:28,637 INFO o.a.j.g.a.SearchTreeDialog: Replaced 1 in element:HTTP Header manager
+2023-08-30 13:42:28,639 INFO o.a.j.g.a.SearchTreeDialog: Replaced 1 in element:HTTP Header manager
+2023-08-30 13:42:28,641 INFO o.a.j.g.a.SearchTreeDialog: Replaced 1 in element:HTTP Header manager
+2023-08-30 13:42:28,642 INFO o.a.j.g.a.SearchTreeDialog: Replaced 1 in element:HTTP Header manager
+2023-08-30 13:42:28,642 INFO o.a.j.g.a2023-08-30 13:48:41,918 INFO o.a.j.g.a.Load: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipeline.jmx
+2023-08-30 13:48:41,919 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:48:41,919 INFO o.a.j.s.SaveService: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipeline.jmx
+2023-08-30 13:48:42,311 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:51:52,082 INFO o.a.j.g.a.Load: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipeline1.jmx
+2023-08-30 13:51:52,083 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:51:52,083 INFO o.a.j.s.SaveService: Loading file: D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin\pipeline1.jmx
+2023-08-30 13:51:52,488 INFO o.a.j.s.FileServer: Set new base='D:\documentation\boldbidemo\jmeter_repo\apache-jmeter-5.5\bin'
+2023-08-30 13:44:51,909 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2023-08-30 13:44:51,912 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2023-08-30 13:44:51,912 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2023-08-30 13:44:52,008 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2023-08-30 13:44:52,075 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2023-08-30 13:44:52,077 INFO o.a.j.e.StandardJMeterEngine: Starting 2 threads for group Thread Group.
+2023-08-30 13:44:52,077 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2023-08-30 13:44:52,077 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=2 ramp-up=2 delayedStart=false
+2023-08-30 13:44:52,085 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2023-08-30 13:44:52,086 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2023-08-30 13:44:52,091 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2023-08-30 13:44:52,116 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = SYNCLAPN-29459
+2023-08-30 13:44:52,128 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2023-08-30 13:44:53,085 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-2
+2023-08-30 13:44:53,201 INFO o.a.j.p.h.c.HC4CookieHandler: Not storing invalid cookie: <user_session=; expires=Tue, 29 Aug 2023 08:14:53 GMT; domain=.boldbi.com; path=/> for URL http://boldbi-loadtest.boldbidemo.com/accounts/login?ReturnUrl=%2F (Illegal 'domain' attribute "boldbi.com". Domain of origin: "boldbi-loadtest.boldbidemo.com")
+2023-08-30 13:44:53,854 INFO o.a.j.p.h.c.HC4CookieHandler: Not storing invalid cookie: <user_session=; expires=Tue, 29 Aug 2023 08:14:54 GMT; domain=.boldbi.com; path=/> for URL http://boldbi-loadtest.boldbidemo.com/accounts/login?ReturnUrl=%2F (Illegal 'domain' attribute "boldbi.com". Domain of origin: "boldbi-loadtest.boldbidemo.com")
+2023-08-30 13:46:14,630 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2023-08-30 13:46:14,630 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2023-08-30 13:46:18,760 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-2
+2023-08-30 13:46:18,761 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-2
+2023-08-30 13:46:18,762 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2023-08-30 13:46:18,764 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)
