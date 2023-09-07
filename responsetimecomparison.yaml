@@ -1,1 +1,45 @@
-y
+trigger:
+- main
+
+pr:
+- '*'
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- powershell: |
+    # Define variables
+    $zipFile = "$(System.DefaultWorkingDirectory)\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\result.zip"
+    $destinationFolder = "$(System.DefaultWorkingDirectory)\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\extracted"
+    $htmlFile = "$(System.DefaultWorkingDirectory)\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\extracted\index.html"
+    $apiName = "Your API Name"  # Replace with the name of your API
+
+    # Unzip the .zip file
+    Expand-Archive -Path $zipFile -DestinationPath $destinationFolder
+
+    # Load the HTML content
+    $htmlContent = Get-Content -Path $htmlFile
+
+    # Use regex to extract the response time for the specified API
+    $regex = "<tr><td>$apiName<\/td><td>(\d+)<\/td>"
+    if ($htmlContent -match $regex) {
+        $responseTime = $Matches[1]
+        Write-Host "Response Time for $apiName: $responseTime ms"
+    } else {
+        Write-Host "API '$apiName' not found in the HTML file."
+    }
+  displayName: 'Extract Response Time for API'
+
+- powershell: |
+    # Add any additional tasks or actions you need here
+    # For example, you can use PowerShell scripts to process the extracted response time further.
+
+    # Clean up extracted files if necessary
+    Remove-Item -Path $zipFile -Force
+    Remove-Item -Path $destinationFolder -Recurse -Force
+  displayName: 'Additional Tasks (Optional)'
