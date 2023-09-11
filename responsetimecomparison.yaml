@@ -30,9 +30,9 @@ steps:
     
     if ($responseTimeNode) {
         $responseTime = $responseTimeNode.InnerText
-        Write-Host "Response Time for $apiName: $responseTime ms"
+        Write-Host "Response Time for $($apiName): $($responseTime) ms"
     } else {
-        Write-Host "API '$apiName' not found in the HTML file."
+        Write-Host "API '$($apiName)' not found in the HTML file."
     }
   displayName: 'Extract Response Time for API'
 
