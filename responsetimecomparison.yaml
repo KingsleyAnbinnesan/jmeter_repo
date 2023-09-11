@@ -1,9 +1,6 @@
 trigger:
 - none
 
-pr:
-- 'loadtest'
-
 pool:
   vmImage: 'windows-latest'
 
