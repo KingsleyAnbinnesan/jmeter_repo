@@ -29,7 +29,7 @@ steps:
     $xml = [xml]$htmlContent
 
     # Use XPath to extract the response time for the specified API
-    $responseTimeNode = $xml.SelectNodes('//*[@id="statisticsTable']/tbody[2]/tr[1]/td[5]")
+    $responseTimeNode = $xml.SelectNodes("//*[@id='statisticsTable']/tbody[2]/tr[1]/td[5]")
     
     if ($responseTimeNode) {
         $responseTime = $responseTimeNode.InnerText
