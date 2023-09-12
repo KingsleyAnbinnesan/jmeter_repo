@@ -11,12 +11,12 @@ steps:
     addToPath: true
     architecture: 'x64'
 
-- script: |
+- powershell: |
     # Create a directory to store the HTML files if it doesn't exist
     mkdir -Force HTMLFiles
 
     # Copy the HTML file(s) from the result folder to the HTMLFiles directory
-    Copy-Item -Path $(System.DefaultWorkingDirectory)/_KingsleyAnbinnesan_jmeter_repo/apache-jmeter-5.5/bin/result/ -Destination HTMLFiles/
+    Copy-Item -Path "$(System.DefaultWorkingDirectory)/_KingsleyAnbinnesan_jmeter_repo/apache-jmeter-5.5/bin/result/*.html" -Destination HTMLFiles/
 
     # Install the HTML Agility Pack library for parsing HTML (if not already installed)
     if (-not (Get-Module -Name 'HtmlAgilityPack' -ListAvailable)) {
@@ -38,5 +38,3 @@ steps:
 - script: |
     # Use the extracted value in subsequent tasks or steps
     echo "The extracted value is $(ExtractedValue)"
-    
-  displayName: 'Use Extracted Value'
