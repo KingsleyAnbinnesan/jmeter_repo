@@ -12,7 +12,7 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: 'D:\a\r1\a\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\result.zip'  # Replace with the path to your existing zip folder
+    targetPath: 'D:\a\r1\a\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\result'  # Replace with the path to your existing zip folder
     artifact: 'loadtest'  # Replace with the desired name for your artifact
 
 - task: DownloadPipelineArtifact@2
@@ -21,11 +21,8 @@ steps:
     path: $(System.ArtifactsDirectory)
 
 - powershell: |
-    # Unzip the artifact
-    Expand-Archive -Path '$(System.ArtifactsDirectory)/your-artifact-name.zip' -DestinationPath '$(System.ArtifactsDirectory)/unzipped/'
-
     # Navigate to the folder containing the HTML file
-    Set-Location '$(System.ArtifactsDirectory)/unzipped/'
+    Set-Location '$(System.ArtifactsDirectory)'
 
     # Use XPath to extract the desired value from the HTML file
     $xml = New-Object -TypeName XML
@@ -35,4 +32,4 @@ steps:
     # Output the extracted value to a pipeline variable for future use
     Write-Host "Extracted Value: $value"
     Write-Output "##vso[task.setvariable variable=ExtractedValue;isOutput=true]$value"
-  displayName: 'Unzip and Extract Value'
+  displayName: 'Extract Value'
