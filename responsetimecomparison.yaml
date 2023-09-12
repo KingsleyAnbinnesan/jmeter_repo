@@ -9,27 +9,34 @@ steps:
   inputs:
     versionSpec: '3.x'
     addToPath: true
+    architecture: 'x64'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: 'D:\a\r1\a\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\result'  # Replace with the path to your existing zip folder
-    artifact: 'loadtest'  # Replace with the desired name for your artifact
+- script: |
+    # Create a directory to store the HTML files if it doesn't exist
+    mkdir -Force HTMLFiles
 
-- task: DownloadPipelineArtifact@2
-  inputs:
-    artifact: 'loadtest'  # Replace with the name of your artifact
-    path: $(System.ArtifactsDirectory)
+    # Copy the HTML file(s) from the result folder to the HTMLFiles directory
+    Copy-Item -Path $(System.DefaultWorkingDirectory)/_KingsleyAnbinnesan_jmeter_repo/apache-jmeter-5.5/bin/result/ -Destination HTMLFiles/
 
-- powershell: |
-    # Navigate to the folder containing the HTML file
-    Set-Location '$(System.ArtifactsDirectory)'
+    # Install the HTML Agility Pack library for parsing HTML (if not already installed)
+    if (-not (Get-Module -Name 'HtmlAgilityPack' -ListAvailable)) {
+        Install-Module -Name 'HtmlAgilityPack' -Scope CurrentUser -Force
+    }
 
-    # Use XPath to extract the desired value from the HTML file
-    $xml = New-Object -TypeName XML
-    $xml.Load('./index.html')  # Replace with the relative path to your HTML file within the unzipped folder
-    $value = $xml.SelectSingleNode('//*[@id="statisticsTable"]/tbody[2]/tr[1]/td[5]').InnerText
+    # Load the HTML file and select the value using XPath
+    $html = New-Object HtmlAgilityPack.HtmlDocument
+    $html.Load("HTMLFiles/*.html")
+    $value = $html.DocumentNode.SelectSingleNode("//*[@id='statisticsTable']/tbody[2]/tr[1]/td[5]").InnerText
 
-    # Output the extracted value to a pipeline variable for future use
     Write-Host "Extracted Value: $value"
-    Write-Output "##vso[task.setvariable variable=ExtractedValue;isOutput=true]$value"
-  displayName: 'Extract Value'
+    
+    # Set the extracted value as an environment variable for later use
+    Write-Host "##vso[task.setvariable variable=ExtractedValue;isOutput=true]$value"
+    
+  displayName: 'Extract Value from HTML'
+
+- script: |
+    # Use the extracted value in subsequent tasks or steps
+    echo "The extracted value is $(ExtractedValue)"
+    
+  displayName: 'Use Extracted Value'
