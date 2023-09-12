@@ -1,46 +1,21 @@
 trigger:
-- none
+- '*'
 
 pool:
   vmImage: 'windows-latest'
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.x'
+jobs:
+- job: UnzipLoadTestResults
+  displayName: Unzip load test results and extract value
+  steps:
+  - task: ExtractFiles@1
+    inputs:
+      archiveFilePatterns: 'D:\a\r1\a\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\result.zip'
+      destinationFolder: '$(Pipeline.Workspace)/loadtest-results'
 
-- powershell: |
-    # Define variables
-    $zipFile = "$(System.DefaultWorkingDirectory)\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\result.zip"
-    $destinationFolder = "$(System.DefaultWorkingDirectory)\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\extracted"
-    $htmlFile = "$(System.DefaultWorkingDirectory)\_KingsleyAnbinnesan_jmeter_repo\apache-jmeter-5.5\bin\extracted\index.html"
-    $apiName = "http://boldbi-loadtest.boldbidemo.com/"  # Replace with the name of your API
-
-    # Unzip the .zip file
-    Expand-Archive -Path $zipFile -DestinationPath $destinationFolder
-
-    # Load the HTML content
-    $htmlContent = Get-Content -Path $htmlFile
-
-    # Load the HTML content into an XML object
-    $xml = [xml]$htmlContent
-
-    # Use XPath to extract the response time for the specified API
-    $responseTimeNode = $xml.SelectNodes("//*[@id='statisticsTable']/tbody[2]/tr[1]/td[5]")
-    
-    if ($responseTimeNode) {
-        $responseTime = $responseTimeNode.InnerText
-        Write-Host "Response Time for $($apiName): $($responseTime) ms"
-    } else {
-        Write-Host "API '$($apiName)' not found in the HTML file."
-    }
-  displayName: 'Extract Response Time for API'
-
-- powershell: |
-    # Add any additional tasks or actions you need here
-    # For example, you can use PowerShell scripts to process the extracted response time further.
-
-    # Clean up extracted files if necessary
-    Remove-Item -Path $zipFile -Force
-    Remove-Item -Path $destinationFolder -Recurse -Force
-  displayName: 'Additional Tasks (Optional)'
+  - task: PowerShell@2
+    inputs:
+      script: |
+        $htmlFile = Get-ChildItem -Path $(Pipeline.Workspace)/loadtest-results/index.html
+        $value = $(Invoke-WebRequest -Uri $htmlFile.Uri -Method Get -ContentType 'text/html' | Select-Xml -XPath '//*[@id="statisticsTable"]/tbody[2]/tr[1]/td[5]/text()' | Select-Object -ExpandProperty Value)
+        Write-Host "The value is: $value"
