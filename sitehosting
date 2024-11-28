@@ -1,0 +1,10 @@
+Write-Host "Opening browser and navigating to ${{ parameters.domainURL }}"
+        start msedge "https://localhost:80"
+        
+        # Wait for the site to load and simulate registration for 60 seconds
+        Write-Host "Waiting for 60 seconds to simulate registration page hosting..."
+        Start-Sleep -Seconds 60
+
+        # Simulate stopping at the 'Go to Dashboard Page'
+        Write-Host "Closing the browser to stop at the 'Go to Dashboard Page'"
+        Get-Process -Name "msedge" -ErrorAction SilentlyContinue | Stop-Process
